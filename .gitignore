@@ -1,0 +1,14 @@
+
+# Bonsai scripting and environment files
+.vs
+bin
+obj
+Packages
+*.nupkg
+*.bin
+*.avi
+*.dll
+*.exe
+*.exe.old
+*.exe.settings
+*.WebView2
