@@ -12,7 +12,24 @@ In this session we want to go beyond the focus on video, and include different w
 Detection of events and tracking freely moving animals (30 min):
 Potential topics:
   - historically: zone activity / centroid blob tracking
+
+   - [ ] Workflow e.g. for ROI activity. 
+    - Shortcuts for drawing ROIs:
+      - When drawing, default is square. Hold shift for a circle
+      - Move the shape by left-clicking and dragging inside the shape
+      - Hold shift, left-click and drag from inside the shape to rescale and orient 
+      - Reshape ROIs by right clicking on edge of the shape; this will grab the nearest point on the shape to reshape from
+      - double right-click to remove a point
+      - Double left-click to add a point
+
   - SLEAP, DLC
+
+    - to install sleap, in a vscode terminal:
+
+    ``` powershell
+    conda create -y -c conda-forge -c nvidia -c sleap -c anaconda --prefix ./.sleap sleap=1.3.3
+    ```
+
   - hand-crafted kinematics vs bonsai ML kinematics;
   - multi-animal tracker by @jfrazao (?)
   - other ML (MOSEQ state-space in bonsai-ml), etc.
