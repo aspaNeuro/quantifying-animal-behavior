@@ -1,0 +1,3 @@
+[submodule "ml-examples"]
+	path = ml-examples
+	url = https://github.com/bonsai-rx/machinelearning-examples.git
