@@ -12,3 +12,5 @@ Packages
 *.exe.old
 *.exe.settings
 *.WebView2
+.conda
+.venv
