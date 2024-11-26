@@ -14,3 +14,4 @@ Packages
 *.WebView2
 .conda
 .venv
+egData
