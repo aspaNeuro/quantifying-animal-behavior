@@ -3,8 +3,7 @@
 .vs
 bin
 obj
-Packages
-*.nupkg
+.bonsai/Packages
 *.bin
 *.avi
 *.dll
