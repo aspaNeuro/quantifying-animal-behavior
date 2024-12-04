@@ -1,9 +1,9 @@
-# Talk 1
-Detection of events and tracking freely moving animals (30 min):
-Potential topics:
+# Quantifing Animal behavior Work ....
+## Install instructions 
+### Bonsai 
+- Open the `.bonsai`folder 
+- run setup.cmd`´
+- This will make a local bonsai installation that you should use for trunning this project.
+### Intsal .venv
+Tom please add instructins in here 
 
-historically: zone activity / centroid blob tracking
-SLEAP, DLC
-hand-crafted kinematics vs bonsai ML kinematics;
-multi-animal tracker by @jfrazao (?)
-other ML (MOSEQ state-space in bonsai-ml), etc.
