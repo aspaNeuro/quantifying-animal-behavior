@@ -53,7 +53,8 @@ If you double click on the path in user variables, you will see a list of paths.
 
 ### Set up python environment for Bonsai.ML
 #### 1. <u>(Recommended)</u> Visual Studio Code
-[Download: python 3.10]() 
+[Direct Download: python 3.10 (Windows 64-bit installer)](https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe) 
+[Python release page](https://www.python.org/downloads/release/python-3100/)
 Hit Ctrl-P to bring up the command pallette. Choose `Python: Create Environment...`, then `Venv`.
 Choose your Python 3.10 installation as the interpreter path, and check the `requirements.txt`.
 
