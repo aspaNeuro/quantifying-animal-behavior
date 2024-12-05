@@ -85,15 +85,6 @@
         </Workflow>
       </Expression>
       <Expression xsi:type="Disable">
-        <Builder xsi:type="viz:TableLayoutPanelBuilder">
-          <viz:ColumnCount>1</viz:ColumnCount>
-          <viz:RowCount>3</viz:RowCount>
-          <viz:ColumnStyles />
-          <viz:RowStyles />
-          <viz:CellSpans />
-        </Builder>
-      </Expression>
-      <Expression xsi:type="Disable">
         <Builder xsi:type="Combinator">
           <Combinator xsi:type="cv:CameraCapture">
             <cv:Index>0</cv:Index>
@@ -103,7 +94,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="cv:FileCapture">
-          <cv:FileName>C:\Users\User\Downloads\flies13\talk_title_slide@13150-14500.mp4</cv:FileName>
+          <cv:FileName>..\data\flies13\talk_title_slide@13150-14500.mp4</cv:FileName>
           <cv:PlaybackRate>100</cv:PlaybackRate>
           <cv:StartPosition>0</cv:StartPosition>
           <cv:PositionUnits>Frames</cv:PositionUnits>
@@ -278,8 +269,8 @@
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="drw:Circle">
                             <drw:Center>
-                              <drw:X>320</drw:X>
-                              <drw:Y>832</drw:Y>
+                              <drw:X>161</drw:X>
+                              <drw:Y>369</drw:Y>
                             </drw:Center>
                             <drw:Radius>5</drw:Radius>
                             <drw:Color>
@@ -336,8 +327,8 @@
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="drw:Circle">
                             <drw:Center>
-                              <drw:X>420</drw:X>
-                              <drw:Y>874</drw:Y>
+                              <drw:X>96</drw:X>
+                              <drw:Y>551</drw:Y>
                             </drw:Center>
                             <drw:Radius>5</drw:Radius>
                             <drw:Color>
@@ -433,8 +424,8 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="sleap:PredictPoseIdentities">
-          <sleap:ModelFileName>C:\Users\User\Downloads\flies13\models\githubDiscussionGroup\exported_model\frozen_graph.pb</sleap:ModelFileName>
-          <sleap:TrainingConfig>C:\Users\User\Downloads\flies13\models\githubDiscussionGroup\exported_model\confmap_config.json</sleap:TrainingConfig>
+          <sleap:ModelFileName>..\data\flies13\models\exported_model\frozen_graph.pb</sleap:ModelFileName>
+          <sleap:TrainingConfig>..\data\flies13\models\exported_model\confmap_config.json</sleap:TrainingConfig>
           <sleap:CentroidMinConfidence xsi:nil="true" />
           <sleap:IdentityMinConfidence xsi:nil="true" />
           <sleap:PartMinConfidence xsi:nil="true" />
@@ -457,18 +448,18 @@
       </Expression>
     </Nodes>
     <Edges>
-      <Edge From="2" To="4" Label="Source1" />
-      <Edge From="3" To="4" Label="Source2" />
+      <Edge From="1" To="3" Label="Source1" />
+      <Edge From="2" To="3" Label="Source2" />
+      <Edge From="3" To="4" Label="Source1" />
       <Edge From="4" To="5" Label="Source1" />
-      <Edge From="5" To="6" Label="Source1" />
-      <Edge From="6" To="14" Label="Source1" />
+      <Edge From="5" To="13" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
       <Edge From="7" To="8" Label="Source1" />
-      <Edge From="8" To="9" Label="Source1" />
-      <Edge From="9" To="14" Label="Source2" />
+      <Edge From="8" To="13" Label="Source2" />
+      <Edge From="9" To="10" Label="Source1" />
       <Edge From="10" To="11" Label="Source1" />
       <Edge From="11" To="12" Label="Source1" />
-      <Edge From="12" To="13" Label="Source1" />
-      <Edge From="13" To="14" Label="Source3" />
+      <Edge From="12" To="13" Label="Source3" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

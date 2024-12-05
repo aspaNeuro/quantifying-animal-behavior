@@ -17,7 +17,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="cv:FileCapture">
-          <cv:FileName>C:\dev\aspaNeuro\quantifying-animal-behavior\egData\ForagingMouseExampleVid.avi</cv:FileName>
+          <cv:FileName>..\data\ForagingMouseExampleVid.avi</cv:FileName>
           <cv:PlaybackRate>0</cv:PlaybackRate>
           <cv:StartPosition>0</cv:StartPosition>
           <cv:PositionUnits>Frames</cv:PositionUnits>
