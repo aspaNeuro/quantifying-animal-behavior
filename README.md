@@ -6,6 +6,19 @@
 Inside you will find a `Data` folder and an `ExternalPackages` folder containing the CuDNN archive. Copy the entire contents to the `data` folder on the repository.
 
 ## Install instructions 
+### Visual Studio Community (optional)
+
+1. Download and run [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/).
+2. Check .NET Desktop Development workload
+3. (optional) uncheck IntelliCode support.
+
+Launch Visual Studio, and set some options up:
+
+Navigate to `TOOLS->Options->Debugging->General` and disable "Require source files to exactly match the original version" .
+
+Go to `TOOLS->Options->Debugging->Symbols` and enable the Microsoft Symbols Server.
+Finally, under `TOOLS->Options->Debugging`, check "Enable Just My Code' and "use Manage/Unmanage mode".
+
 ### Bonsai 
 - Open the `.bonsai` folder 
 - run `setup.cmd`
