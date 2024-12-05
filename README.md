@@ -3,7 +3,7 @@
 
 [Download: Shared OneDrive Folder](https://neurogears-my.sharepoint.com/:f:/g/personal/t_ryan_neurogears_org/EokFwZYwH_xNvsJVq05I4wgBOxHhyaGkTTZiAKRU6gzrSA?e=Wq4vSY)
 
-Inside you will find a `Data` folder and an `ExternalPackages` folder containing the CuDNN archive. Copy the entire contents to the `data` folder on the repository.
+Inside you will find a `Data` folder and an `ExternalPackages` folder containing the CuDNN archive. Copy the entire `data` folder from the OneDrive to the root of the repository. (".\quantifying-animal-behavior\data"). You can ignore the external packages until later...
 
 ## Install instructions 
 ### Visual Studio Community (optional)
@@ -19,21 +19,23 @@ Navigate to `TOOLS->Options->Debugging->General` and disable "Require source fil
 Go to `TOOLS->Options->Debugging->Symbols` and enable the Microsoft Symbols Server.
 Finally, under `TOOLS->Options->Debugging`, check "Enable Just My Code' and "use Manage/Unmanage mode".
 
-### Bonsai 
+## Bonsai 
 - Open the `.bonsai` folder 
 - run `setup.cmd`
 
 - This will download and create a local Bonsai installation that you can use to edit and run the Workflows in this project
 
-## Install external SLEAP dependencies. 
+## Install external SLEAP dependencies (Optional)
+> **NOTE:**  This step is optional for hardware acceleration IF you have a compatible NVidia card. If not, or for slow but less painful install, skip this and download the [CPU version of tensorflow](#install-tensorflow-21). 
+
 ([Full instructions](https://bonsai-rx.org/sleap/index.html), but we shouldn't need this!)
-### If you have a Cuda enabled graphics card (Nvidia) 
+
 In order to use the graphics card for hardware accelerated inference in Bonsai, you will need to install the [Cuda Toolkit 11.3](https://developer.nvidia.com/cuda-11.3.0-download-archive) (for SLEAP multi-animal tracking)
    * Select Custom install and check `CUDA > Development` and `CUDA > Runtime` ONLY (uncheck everything else)
  
-Now download the compatible [cuDNN 8.2.1](https://developer.nvidia.com/cudnn)
+Now download [cuDNN 8.2.1](https://developer.nvidia.com/cudnn)
 
-You will need to login to the NVidia website to download cuDNN. But you can also download it from the [shared OneDrive folder](https://neurogears-my.sharepoint.com/:f:/g/personal/t_ryan_neurogears_org/EokFwZYwH_xNvsJVq05I4wgBOxHhyaGkTTZiAKRU6gzrSA?e=Wq4vSY)
+You will need to login to the NVidia website to download cuDNN. But you can also download it from the "External Packages" folder [shared OneDrive folder](https://neurogears-my.sharepoint.com/:f:/g/personal/t_ryan_neurogears_org/EokFwZYwH_xNvsJVq05I4wgBOxHhyaGkTTZiAKRU6gzrSA?e=Wq4vSY) if you have issues
 
 Once installed, could be worth checking your User and System Variables. You should see your python installation on the `Path` of User Variables. It should look something like this:
 
@@ -44,6 +46,9 @@ You should see the CUDA_PATH is correctly pointing to CUDA 11.3
 If you double click on the path in user variables, you will see a list of paths. You should find your Python 3.10 installation here
 
 ![Env](./assets/envvar.png)
+
+And double click the Path under System variables:
+![SysEnv](./assets/envpath.png)
 ### Install tensorflow 2.1
 <u>Windows Binaries:</u>
 
@@ -55,6 +60,7 @@ If you double click on the path in user variables, you will see a list of paths.
 #### 1. <u>(Recommended)</u> Visual Studio Code
 [Direct Download: python 3.10 (Windows 64-bit installer)](https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe) 
 [Python release page](https://www.python.org/downloads/release/python-3100/)
+
 Hit Ctrl-P to bring up the command pallette. Choose `Python: Create Environment...`, then `Venv`.
 Choose your Python 3.10 installation as the interpreter path, and check the `requirements.txt`.
 
