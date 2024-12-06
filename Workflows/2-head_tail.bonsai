@@ -320,20 +320,22 @@
                 <cv:ThresholdType>BinaryInv</cv:ThresholdType>
               </Combinator>
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="cv:MorphologicalOperator">
-                <cv:Size>
-                  <cv:Width>5</cv:Width>
-                  <cv:Height>5</cv:Height>
-                </cv:Size>
-                <cv:Anchor>
-                  <cv:X>-1</cv:X>
-                  <cv:Y>-1</cv:Y>
-                </cv:Anchor>
-                <cv:Shape>Ellipse</cv:Shape>
-                <cv:Iterations>1</cv:Iterations>
-                <cv:Operation>Dilate</cv:Operation>
-              </Combinator>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="cv:MorphologicalOperator">
+                  <cv:Size>
+                    <cv:Width>5</cv:Width>
+                    <cv:Height>5</cv:Height>
+                  </cv:Size>
+                  <cv:Anchor>
+                    <cv:X>-1</cv:X>
+                    <cv:Y>-1</cv:Y>
+                  </cv:Anchor>
+                  <cv:Shape>Ellipse</cv:Shape>
+                  <cv:Iterations>1</cv:Iterations>
+                  <cv:Operation>Dilate</cv:Operation>
+                </Combinator>
+              </Builder>
             </Expression>
             <Expression xsi:type="rx:BehaviorSubject">
               <Name>ThresholdImage</Name>
@@ -461,6 +463,9 @@
       <Expression xsi:type="rx:PublishSubject">
         <Name>TrackingHeadTailDirection</Name>
       </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>TrackingHeadTailDirection</Name>
+      </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>TrackingVisualizer</Name>
         <Workflow>
@@ -573,8 +578,8 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="drw:Circle">
                 <drw:Center>
-                  <drw:X>319</drw:X>
-                  <drw:Y>143</drw:Y>
+                  <drw:X>517</drw:X>
+                  <drw:Y>223</drw:Y>
                 </drw:Center>
                 <drw:Radius>1</drw:Radius>
                 <drw:Color>
@@ -599,8 +604,8 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="drw:Circle">
                 <drw:Center>
-                  <drw:X>327</drw:X>
-                  <drw:Y>135</drw:Y>
+                  <drw:X>520</drw:X>
+                  <drw:Y>217</drw:Y>
                 </drw:Center>
                 <drw:Radius>1</drw:Radius>
                 <drw:Color>
@@ -625,8 +630,8 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="drw:Circle">
                 <drw:Center>
-                  <drw:X>334</drw:X>
-                  <drw:Y>126</drw:Y>
+                  <drw:X>523</drw:X>
+                  <drw:Y>211</drw:Y>
                 </drw:Center>
                 <drw:Radius>1</drw:Radius>
                 <drw:Color>
@@ -694,7 +699,7 @@
       <Edge From="5" To="7" Label="Source1" />
       <Edge From="6" To="7" Label="Source2" />
       <Edge From="7" To="8" Label="Source1" />
-      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="9" To="10" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
