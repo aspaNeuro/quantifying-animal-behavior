@@ -724,8 +724,8 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="sleap:PredictPoseIdentities">
-          <sleap:ModelFileName>..\data\flies13\models\exported_model\frozen_graph.pb</sleap:ModelFileName>
-          <sleap:TrainingConfig>..\data\flies13\models\exported_model\confmap_config.json</sleap:TrainingConfig>
+          <sleap:ModelFileName>..\data\flies13\models\githubDiscussionGroup\exported_model\frozen_graph.pb</sleap:ModelFileName>
+          <sleap:TrainingConfig>..\data\flies13\models\githubDiscussionGroup\exported_model\confmap_config.json</sleap:TrainingConfig>
           <sleap:CentroidMinConfidence xsi:nil="true" />
           <sleap:IdentityMinConfidence xsi:nil="true" />
           <sleap:PartMinConfidence xsi:nil="true" />
