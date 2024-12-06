@@ -4,6 +4,7 @@
 bin
 obj
 .bonsai/Packages
+ExternalPackages
 *.bin
 *.avi
 *.dll
