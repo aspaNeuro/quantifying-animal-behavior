@@ -4,16 +4,14 @@
                  xmlns:py="clr-namespace:Bonsai.Scripting.Python;assembly=Bonsai.Scripting.Python"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:p1="clr-namespace:OpenCV.Net;assembly=OpenCV.Net"
-                 xmlns:p2="clr-namespace:Python.Runtime;assembly=Python.Runtime"
                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                 xmlns:p3="clr-namespace:Bonsai.ML.LinearDynamicalSystems.Kinematics;assembly=Bonsai.ML.LinearDynamicalSystems"
-                 xmlns:p4="clr-namespace:Bonsai.ML.HiddenMarkovModels;assembly=Bonsai.ML.HiddenMarkovModels"
+                 xmlns:p2="clr-namespace:Bonsai.ML.LinearDynamicalSystems.Kinematics;assembly=Bonsai.ML.LinearDynamicalSystems"
+                 xmlns:p3="clr-namespace:Bonsai.ML.HiddenMarkovModels;assembly=Bonsai.ML.HiddenMarkovModels"
                  xmlns:scr="clr-namespace:Bonsai.Scripting.Expressions;assembly=Bonsai.Scripting.Expressions"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
-                 xmlns:p5="clr-namespace:Bonsai.ML.HiddenMarkovModels.Transitions;assembly=Bonsai.ML.HiddenMarkovModels"
-                 xmlns:p6="clr-namespace:Bonsai.ML;assembly=Bonsai.ML"
+                 xmlns:p4="clr-namespace:Bonsai.ML.HiddenMarkovModels.Transitions;assembly=Bonsai.ML.HiddenMarkovModels"
                  xmlns:viz="clr-namespace:Bonsai.Design.Visualizers;assembly=Bonsai.Design.Visualizers"
-                 xmlns:p7="clr-namespace:Bonsai.ML.HiddenMarkovModels.Design;assembly=Bonsai.ML.HiddenMarkovModels.Design"
+                 xmlns:p5="clr-namespace:Bonsai.ML.HiddenMarkovModels.Design;assembly=Bonsai.ML.HiddenMarkovModels.Design"
                  xmlns:gui="clr-namespace:Bonsai.Gui;assembly=Bonsai.Gui"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
@@ -30,29 +28,34 @@
             <Expression xsi:type="rx:BehaviorSubject" TypeArguments="p1:Point2f">
               <rx:Name>Centroid</rx:Name>
             </Expression>
-            <Expression xsi:type="rx:BehaviorSubject" TypeArguments="p2:PyObject">
-              <rx:Name>LdsLearningEpoch</rx:Name>
-            </Expression>
             <Expression xsi:type="rx:BehaviorSubject" TypeArguments="sys:Int32">
               <rx:Name>LdsLearningIterations</rx:Name>
             </Expression>
             <Expression xsi:type="rx:BehaviorSubject" TypeArguments="sys:Int32">
               <rx:Name>Timesteps</rx:Name>
             </Expression>
-            <Expression xsi:type="rx:BehaviorSubject" TypeArguments="p3:KinematicState">
+            <Expression xsi:type="rx:BehaviorSubject" TypeArguments="p2:KinematicState">
               <rx:Name>InferredKinematics</rx:Name>
             </Expression>
-            <Expression xsi:type="rx:BehaviorSubject" TypeArguments="p3:Forecast">
+            <Expression xsi:type="rx:BehaviorSubject" TypeArguments="p2:Forecast">
               <rx:Name>Forecast</rx:Name>
             </Expression>
-            <Expression xsi:type="rx:BehaviorSubject" TypeArguments="p2:PyObject">
-              <rx:Name>HmmLearningEpoch</rx:Name>
-            </Expression>
-            <Expression xsi:type="rx:BehaviorSubject" TypeArguments="p4:StateProbability">
+            <Expression xsi:type="rx:BehaviorSubject" TypeArguments="p3:StateProbability">
               <rx:Name>StateProbability</rx:Name>
             </Expression>
             <Expression xsi:type="rx:BehaviorSubject" TypeArguments="sys:Int32">
               <rx:Name>HmmLearningIterations</rx:Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="BooleanProperty">
+                <Value>false</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject" TypeArguments="sys:Boolean">
+              <rx:Name>LdsLearningEpoch</rx:Name>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject" TypeArguments="sys:Boolean">
+              <rx:Name>HmmLearningEpoch</rx:Name>
             </Expression>
           </Nodes>
           <Edges />
@@ -490,9 +493,9 @@
               <Name>LdsModelParameters</Name>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p5:StickyTransitions">
-                <p5:Alpha>1</p5:Alpha>
-                <p5:Kappa>1000000</p5:Kappa>
+              <Combinator xsi:type="p4:StickyTransitions">
+                <p4:Alpha>1</p4:Alpha>
+                <p4:Kappa>1000000</p4:Kappa>
               </Combinator>
             </Expression>
             <Expression xsi:type="PropertyMapping">
@@ -501,7 +504,7 @@
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p4:StateParameters" />
+              <Combinator xsi:type="p3:StateParameters" />
             </Expression>
             <Expression xsi:type="PropertyMapping">
               <PropertyMappings>
@@ -543,209 +546,15 @@
                 <rx:Scheduler>ThreadPoolScheduler</rx:Scheduler>
               </Combinator>
             </Expression>
-            <Expression xsi:type="GroupWorkflow">
-              <Name>RunOptimizationAsync</Name>
-              <Workflow>
-                <Nodes>
-                  <Expression xsi:type="WorkflowInput">
-                    <Name>Source1</Name>
-                  </Expression>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="Value" DisplayName="BatchSize" Category="TrainingData" />
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="IntProperty">
-                      <Value>200</Value>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="PropertyMapping">
-                    <PropertyMappings>
-                      <Property Name="Count" />
-                    </PropertyMappings>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="IntProperty">
-                      <Value>200</Value>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="PropertyMapping">
-                    <PropertyMappings>
-                      <Property Name="Skip" />
-                    </PropertyMappings>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="rx:BufferCount">
-                      <rx:Count>200</rx:Count>
-                      <rx:Skip>200</rx:Skip>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="rx:Concat" />
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="py:ObserveOnGIL" />
-                  </Expression>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="Name" DisplayName="Name" Category="ModelReference" />
-                  </Expression>
-                  <Expression xsi:type="SubscribeSubject" TypeArguments="p6:ModelReference">
-                    <Name>model</Name>
-                  </Expression>
-                  <Expression xsi:type="MemberSelector">
-                    <Selector>Name</Selector>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="rx:WithLatestFrom" />
-                  </Expression>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="Value" DisplayName="sigma_a" Category="ParametersToOptimize" />
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="BooleanProperty">
-                      <Value>true</Value>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="Value" DisplayName="sigma_x, sigma_y" Category="ParametersToOptimize" />
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="BooleanProperty">
-                      <Value>true</Value>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="Value" DisplayName="m0" Category="ParametersToOptimize" />
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="BooleanProperty">
-                      <Value>true</Value>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="Value" DisplayName="sqrt_diag_V0_value" Category="ParametersToOptimize" />
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="BooleanProperty">
-                      <Value>true</Value>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="IntProperty">
-                      <Value>200</Value>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="Value" DisplayName="NumIterations" Category="Hyperparameters" />
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="IntProperty">
-                      <Value>50</Value>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="Value" DisplayName="PrintConvergenceMessages" Category="Verbosity" />
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="BooleanProperty">
-                      <Value>true</Value>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="rx:CombineLatest" />
-                  </Expression>
-                  <Expression xsi:type="Format">
-                    <Format>vars_to_estimate = {{"sigma_a": {0}, "sqrt_diag_R": {1}, "R": {1}, "m0": {2}, "sqrt_diag_V0": {3}, "V0": {3}}}, batch_size = {4}, max_iter = {5}, disp = {6}</Format>
-                    <Selector>it.Item1, it.Item2, it.Item3, it.Item4, it.Item5, it.Item6, it.Item7</Selector>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="rx:WithLatestFrom" />
-                  </Expression>
-                  <Expression xsi:type="Format">
-                    <Format>{0}.run_optimization_async({1}, {2})</Format>
-                    <Selector>it.Item1.Item2,it.Item1.Item1, it.Item2</Selector>
-                  </Expression>
-                  <Expression xsi:type="InputMapping">
-                    <PropertyMappings>
-                      <Property Name="Expression" Selector="it" />
-                    </PropertyMappings>
-                  </Expression>
-                  <Expression xsi:type="SubscribeSubject">
-                    <Name>LDSModule</Name>
-                  </Expression>
-                  <Expression xsi:type="PropertyMapping">
-                    <PropertyMappings>
-                      <Property Name="Module" />
-                    </PropertyMappings>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="py:Eval">
-                      <py:Expression>model1.run_optimization_async(x=372.270477294922,y=149.264526367188, vars_to_estimate = {"sigma_a": True, "sqrt_diag_R": True, "R": True, "m0": True, "sqrt_diag_V0": True, "V0": True}, batch_size = 200)</py:Expression>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="scr:ExpressionTransform">
-                    <scr:Expression>it.ToString() == "True"</scr:Expression>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="rx:DistinctUntilChanged" />
-                  </Expression>
-                  <Expression xsi:type="rx:Condition">
-                    <Name>IsRunningOptimization?</Name>
-                    <Workflow>
-                      <Nodes>
-                        <Expression xsi:type="WorkflowInput">
-                          <Name>Source1</Name>
-                        </Expression>
-                        <Expression xsi:type="WorkflowOutput" />
-                      </Nodes>
-                      <Edges>
-                        <Edge From="0" To="1" Label="Source1" />
-                      </Edges>
-                    </Workflow>
-                  </Expression>
-                  <Expression xsi:type="WorkflowOutput" />
-                </Nodes>
-                <Edges>
-                  <Edge From="0" To="6" Label="Source1" />
-                  <Edge From="1" To="2" Label="Source1" />
-                  <Edge From="1" To="4" Label="Source1" />
-                  <Edge From="1" To="21" Label="Source1" />
-                  <Edge From="2" To="3" Label="Source1" />
-                  <Edge From="3" To="6" Label="Source2" />
-                  <Edge From="4" To="5" Label="Source1" />
-                  <Edge From="5" To="6" Label="Source3" />
-                  <Edge From="6" To="7" Label="Source1" />
-                  <Edge From="7" To="8" Label="Source1" />
-                  <Edge From="8" To="12" Label="Source1" />
-                  <Edge From="9" To="10" Label="Source1" />
-                  <Edge From="10" To="11" Label="Source1" />
-                  <Edge From="11" To="12" Label="Source2" />
-                  <Edge From="12" To="28" Label="Source1" />
-                  <Edge From="13" To="14" Label="Source1" />
-                  <Edge From="14" To="26" Label="Source1" />
-                  <Edge From="15" To="16" Label="Source1" />
-                  <Edge From="16" To="26" Label="Source2" />
-                  <Edge From="17" To="18" Label="Source1" />
-                  <Edge From="18" To="26" Label="Source3" />
-                  <Edge From="19" To="20" Label="Source1" />
-                  <Edge From="20" To="26" Label="Source4" />
-                  <Edge From="21" To="26" Label="Source5" />
-                  <Edge From="22" To="23" Label="Source1" />
-                  <Edge From="23" To="26" Label="Source6" />
-                  <Edge From="24" To="25" Label="Source1" />
-                  <Edge From="25" To="26" Label="Source7" />
-                  <Edge From="26" To="27" Label="Source1" />
-                  <Edge From="27" To="28" Label="Source2" />
-                  <Edge From="28" To="29" Label="Source1" />
-                  <Edge From="29" To="30" Label="Source1" />
-                  <Edge From="30" To="33" Label="Source1" />
-                  <Edge From="31" To="32" Label="Source1" />
-                  <Edge From="32" To="33" Label="Source2" />
-                  <Edge From="33" To="34" Label="Source1" />
-                  <Edge From="34" To="35" Label="Source1" />
-                  <Edge From="35" To="36" Label="Source1" />
-                  <Edge From="36" To="37" Label="Source1" />
-                </Edges>
-              </Workflow>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.ML.LinearDynamicalSystems:Kinematics.RunOptimizationAsync.bonsai">
+              <Name>model</Name>
+              <sigma_a>true</sigma_a>
+              <sigma_xy>true</sigma_xy>
+              <m0>true</m0>
+              <sqrt_diag_V0_value>true</sqrt_diag_V0_value>
+              <BatchSize>200</BatchSize>
+              <NumIterations>50</NumIterations>
+              <PrintConvergenceMessages>true</PrintConvergenceMessages>
             </Expression>
             <Expression xsi:type="rx:SelectMany">
               <Name>AwaitOptimization</Name>
@@ -760,123 +569,8 @@
                       <rx:Period>PT1S</rx:Period>
                     </Combinator>
                   </Expression>
-                  <Expression xsi:type="GroupWorkflow">
-                    <Name>CheckOptimizationFinished</Name>
-                    <Workflow>
-                      <Nodes>
-                        <Expression xsi:type="WorkflowInput">
-                          <Name>Source1</Name>
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="py:ObserveOnGIL" />
-                        </Expression>
-                        <Expression xsi:type="ExternalizedMapping">
-                          <Property Name="Name" DisplayName="Name" Category="ModelReference" />
-                        </Expression>
-                        <Expression xsi:type="SubscribeSubject">
-                          <Name>model</Name>
-                        </Expression>
-                        <Expression xsi:type="MemberSelector">
-                          <Selector>Name</Selector>
-                        </Expression>
-                        <Expression xsi:type="Format">
-                          <Format>{0}.get_optimization_finished()</Format>
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="rx:WithLatestFrom" />
-                        </Expression>
-                        <Expression xsi:type="InputMapping">
-                          <PropertyMappings>
-                            <Property Name="Expression" Selector="it.Item2" />
-                          </PropertyMappings>
-                        </Expression>
-                        <Expression xsi:type="SubscribeSubject">
-                          <Name>LDSModule</Name>
-                        </Expression>
-                        <Expression xsi:type="PropertyMapping">
-                          <PropertyMappings>
-                            <Property Name="Module" />
-                          </PropertyMappings>
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="py:Eval">
-                            <py:Expression>model1.get_optimization_finished()</py:Expression>
-                          </Combinator>
-                        </Expression>
-                        <Expression xsi:type="rx:Condition">
-                          <Name>OptimizationFinished?</Name>
-                          <Workflow>
-                            <Nodes>
-                              <Expression xsi:type="WorkflowInput">
-                                <Name>Source1</Name>
-                              </Expression>
-                              <Expression xsi:type="scr:ExpressionTransform">
-                                <scr:Expression>it.ToString() == "True"</scr:Expression>
-                              </Expression>
-                              <Expression xsi:type="WorkflowOutput" />
-                            </Nodes>
-                            <Edges>
-                              <Edge From="0" To="1" Label="Source1" />
-                              <Edge From="1" To="2" Label="Source1" />
-                            </Edges>
-                          </Workflow>
-                        </Expression>
-                        <Expression xsi:type="SubscribeSubject">
-                          <Name>model</Name>
-                        </Expression>
-                        <Expression xsi:type="MemberSelector">
-                          <Selector>Name</Selector>
-                        </Expression>
-                        <Expression xsi:type="Format">
-                          <Format>{0}.reset_optimization_loop()</Format>
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="rx:WithLatestFrom" />
-                        </Expression>
-                        <Expression xsi:type="InputMapping">
-                          <PropertyMappings>
-                            <Property Name="Expression" Selector="it.Item2" />
-                          </PropertyMappings>
-                        </Expression>
-                        <Expression xsi:type="SubscribeSubject">
-                          <Name>LDSModule</Name>
-                        </Expression>
-                        <Expression xsi:type="PropertyMapping">
-                          <PropertyMappings>
-                            <Property Name="Module" />
-                          </PropertyMappings>
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="py:Eval">
-                            <py:Expression>model1.reset_optimization_loop()</py:Expression>
-                          </Combinator>
-                        </Expression>
-                        <Expression xsi:type="WorkflowOutput" />
-                      </Nodes>
-                      <Edges>
-                        <Edge From="0" To="1" Label="Source1" />
-                        <Edge From="1" To="6" Label="Source1" />
-                        <Edge From="2" To="3" Label="Source1" />
-                        <Edge From="2" To="12" Label="Source1" />
-                        <Edge From="3" To="4" Label="Source1" />
-                        <Edge From="4" To="5" Label="Source1" />
-                        <Edge From="5" To="6" Label="Source2" />
-                        <Edge From="6" To="7" Label="Source1" />
-                        <Edge From="7" To="10" Label="Source1" />
-                        <Edge From="8" To="9" Label="Source1" />
-                        <Edge From="9" To="10" Label="Source2" />
-                        <Edge From="10" To="11" Label="Source1" />
-                        <Edge From="11" To="15" Label="Source1" />
-                        <Edge From="12" To="13" Label="Source1" />
-                        <Edge From="13" To="14" Label="Source1" />
-                        <Edge From="14" To="15" Label="Source2" />
-                        <Edge From="15" To="16" Label="Source1" />
-                        <Edge From="16" To="19" Label="Source1" />
-                        <Edge From="17" To="18" Label="Source1" />
-                        <Edge From="18" To="19" Label="Source2" />
-                        <Edge From="19" To="20" Label="Source1" />
-                      </Edges>
-                    </Workflow>
+                  <Expression xsi:type="IncludeWorkflow" Path="Bonsai.ML.LinearDynamicalSystems:Kinematics.CheckOptimizationFinished.bonsai">
+                    <Name>model</Name>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="rx:Take">
@@ -1060,8 +754,8 @@
               </Combinator>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Bonsai.ML.HiddenMarkovModels:RunFitAsync.bonsai">
-              <BatchSize>1000</BatchSize>
               <Name>hmm</Name>
+              <BatchSize>1000</BatchSize>
               <NumIterations>50</NumIterations>
               <FlushDataBetweenBatches>false</FlushDataBetweenBatches>
               <InitialStateDistribution>true</InitialStateDistribution>
@@ -1156,8 +850,8 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="cv:CreatePoint2f">
-                <cv:X>330.743927</cv:X>
-                <cv:Y>148.460449</cv:Y>
+                <cv:X>330.173279</cv:X>
+                <cv:Y>97.64029</cv:Y>
               </Combinator>
             </Expression>
             <Expression xsi:type="VisualizerMapping" />
@@ -1189,13 +883,13 @@
               <Name>Statistics</Name>
             </Expression>
             <Expression xsi:type="VisualizerMapping">
-              <VisualizerType xsi:type="TypeMapping" TypeArguments="p7:GaussianObservationStatisticsVisualizer" />
+              <VisualizerType xsi:type="TypeMapping" TypeArguments="p5:GaussianObservationStatisticsVisualizer" />
             </Expression>
             <Expression xsi:type="SubscribeSubject">
               <Name>Statistics</Name>
             </Expression>
             <Expression xsi:type="VisualizerMapping">
-              <VisualizerType xsi:type="TypeMapping" TypeArguments="p7:GaussianObservationsStatisticsClustersVisualizer" />
+              <VisualizerType xsi:type="TypeMapping" TypeArguments="p5:GaussianObservationsStatisticsClustersVisualizer" />
             </Expression>
             <Expression xsi:type="viz:TableLayoutPanelBuilder">
               <viz:ColumnCount>3</viz:ColumnCount>
